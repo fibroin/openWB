@@ -1,21 +1,25 @@
 <template>
   <SliderStandard
     title="Minimaler Dauerstrom"
-    :min="0"
+    :min="-1"
     :max="16"
+    :step="1"
     unit="A"
+    :off-value-left="-1"
+    :discrete-values="[-1, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]"
     v-model="pvMinCurrent.value"
-    class="q-mt-md"
+    class="q-mt-md q-ml-sm"
   />
 
   <SliderStandard
     title="Mindest-SoC für das Fahrzeug"
     :min="0"
-    :max="95"
+    :max="100"
     :step="5"
     unit="%"
+    :off-value-left="0"
     v-model="pvMinSoc.value"
-    class="q-mt-md"
+    class="q-mt-md q-ml-sm"
   />
 
   <SliderStandard
@@ -24,17 +28,22 @@
     :max="32"
     unit="A"
     v-model="pvMinSocCurrent.value"
-    class="q-mt-md"
+    class="q-mt-md q-ml-sm"
   />
 
   <SliderStandard
     title="SoC-Limit für das Fahrzeug"
     :min="0"
-    :max="100"
-    :step="5"
+    :max="101"
+    :step="1"
     unit="%"
+    :discrete-values="[
+      0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90,
+      95, 100, 101,
+    ]"
+    :off-value-right="101"
     v-model="pvMaxSocLimit.value"
-    class="q-mt-md"
+    class="q-mt-md q-ml-sm"
   />
 
   <div class="row items-center q-ma-none q-pa-none no-wrap">

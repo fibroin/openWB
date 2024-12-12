@@ -115,16 +115,23 @@ const targetSoc = computed<number | undefined>(() => {
     return mqttStore.chargePointConnectedVehicleInstantChargeLimitSoC(
       props.chargePointId,
     )?.value;
+  } else if (chargeMode === 'pv_charging') {
+    return mqttStore.chargePointConnectedVehiclePVChargeMaxSoc(
+      props.chargePointId,
+    ).value;
   } else {
     return undefined;
   }
 });
 
 const targetTime = computed(() => {
+  const chargeMode = mqttStore.chargePointConnectedVehicleChargeMode(
+    props.chargePointId,
+  ).value;
   const target = mqttStore.vehicleScheduledChargingTarget(
     props.chargePointId,
   ).value;
-  if (!target || !target.time) {
+  if (!target || !target.time || chargeMode !== 'scheduled_charging') {
     return 'keine';
   }
   return target.time;
